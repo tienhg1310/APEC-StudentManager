@@ -1,10 +1,12 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import Home from './component/screen/home-screen/Home'
+import React from "react";
+import ReactDOM from "react-dom/client";
 
+import "./main.css";
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+import Home from "./component/screen/home-screen/Home";
+
+ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <Home></Home>
-  </React.StrictMode>,
-)
+  </React.StrictMode>
+);
