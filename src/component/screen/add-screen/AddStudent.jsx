@@ -2,6 +2,8 @@ import axios from "axios";
 import React, { memo, useEffect, useState } from "react";
 import URL from "../../Data/API";
 
+import moment from "moment/moment";
+
 function AddStudent() {
   const [student, setStudent] = useState({
     first_name: "",
@@ -14,45 +16,47 @@ function AddStudent() {
     sex: "",
   });
 
-  const handleChange = (event) => {
+  const handleChange = async (event) => {
     const name = event.target.name;
     const value = event.target.value;
-    setStudent((values) => ({ ...values, [name]: value }));
+
+    if (name === "born") {
+      setStudent((values) => ({
+        ...values,
+        [name]: moment(value).format("yyyy-MM-DD"),
+      }));
+    } else {
+      setStudent((values) => ({ ...values, [name]: value }));
+    }
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    useEffect(() => {
-      axios
-        .post("/user", student)
-        .then((response) => {
-          console.log(response);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    });
+    const timeParse = Date.parse(student.born) / 1000;
+    const postStudent = {
+      ...student,
+      born: timeParse,
+    };
+    await axios({
+      method: "post",
+      url: `${URL}/students`,
+      data: postStudent,
+    })
+      .then(function (response) {
+        //handle success
+        console.log(response);
+      })
+      .catch(function (response) {
+        //handle error
+        console.log(response);
+      });
   };
 
   return (
     <form
-      action=""
-      className="add_container w-3/12  mr-4 shadow-2xl rounded-lg border border-slate-100 p-10 flex flex-col"
+      className="add_container xl:w-3/12 lg:w-full lg:block  mr-4 shadow-2xl rounded-lg border border-slate-100 p-10 xl:flex xl:flex-col"
       onSubmit={handleSubmit}
     >
-      <div className="form_item flex flex-row justify-between">
-        <label className="w-4/12">Tên</label>
-        <input
-          type="text"
-          id="first_name"
-          name="first_name"
-          value={student.first_name || ""}
-          onChange={handleChange}
-          className="px-3 py-1 w-8/12 border-solid border-2 rounded-lg border-black focus-visible:border-red-400"
-        ></input>
-      </div>
-
-      <br />
       <div className="form_item flex flex-row justify-between">
         <label className="w-4/12">Tên đệm</label>
         <input
@@ -60,6 +64,18 @@ function AddStudent() {
           id="last_name"
           name="last_name"
           value={student.last_name || ""}
+          onChange={handleChange}
+          className="px-3 py-1 w-8/12 border-solid border-2 rounded-lg border-black focus-visible:border-red-400"
+        ></input>
+      </div>
+      <br />
+      <div className="form_item flex flex-row justify-between">
+        <label className="w-4/12">Tên</label>
+        <input
+          type="text"
+          id="first_name"
+          name="first_name"
+          value={student.first_name || ""}
           onChange={handleChange}
           className="px-3 py-1 w-8/12 border-solid border-2 rounded-lg border-black focus-visible:border-red-400"
         ></input>
@@ -75,6 +91,7 @@ function AddStudent() {
           value={student.born || ""}
           onChange={handleChange}
           className="px-3 py-1 w-8/12 border-solid border-2 rounded-lg border-black focus-visible:border-red-400"
+          placeholder={new Date()}
         ></input>
       </div>
 
