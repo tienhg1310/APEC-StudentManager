@@ -3,6 +3,8 @@ import React, { memo, useEffect, useState } from "react";
 import URL from "../../Data/API";
 
 import moment from "moment/moment";
+import { useDispatch } from "react-redux";
+import studentSlice from "../../../redux/studentSlice";
 
 function AddStudent() {
   const [student, setStudent] = useState({
@@ -16,14 +18,16 @@ function AddStudent() {
     sex: "",
   });
 
-  const handleChange = async (event) => {
+  const dispatch = useDispatch();
+
+  const handleChange = (event) => {
     const name = event.target.name;
     const value = event.target.value;
 
     if (name === "born") {
       setStudent((values) => ({
         ...values,
-        [name]: moment(value).format("yyyy-MM-DD"),
+        [name]: moment(value).format("DD-MM-yyyy"),
       }));
     } else {
       setStudent((values) => ({ ...values, [name]: value }));
@@ -50,6 +54,7 @@ function AddStudent() {
         //handle error
         console.log(response);
       });
+    dispatch(studentSlice.actions.addStudent(student))
   };
 
   return (

@@ -1,5 +1,59 @@
+const API = [
+  {
+    first_name: "first_name 1",
+    last_name: "last_name 1",
+    born: 1686303506,
+    favorite: "favorite 1",
+    math_point: 49,
+    literature_point: 12,
+    english_point: 52,
+    sex: false,
+    id: "1",
+  },
+  {
+    first_name: "first_name 2",
+    last_name: "last_name 2",
+    born: 1686303446,
+    favorite: "favorite 2",
+    math_point: 54,
+    literature_point: 31,
+    english_point: 6,
+    sex: false,
+    id: "2",
+  },
+  {
+    first_name: "first_name 3",
+    last_name: "last_name 3",
+    born: 1686303386,
+    favorite: "favorite 3",
+    math_point: 2,
+    literature_point: 99,
+    english_point: 48,
+    sex: false,
+    id: "3",
+  },
+  {
+    first_name: "first_name 4",
+    last_name: "last_name 4",
+    born: 1686303326,
+    favorite: "favorite 4",
+    math_point: 95,
+    literature_point: 8,
+    english_point: 2,
+    sex: false,
+    id: "4",
+  },
+  {
+    first_name: "first_name 5",
+    last_name: "last_name 5",
+    born: 1686303266,
+    favorite: "favorite 5",
+    math_point: 89,
+    literature_point: 57,
+    english_point: 68,
+    sex: false,
+    id: "5",
+  },
+];
 
-
-const URL = 'https://647a1c60a455e257fa6453f5.mockapi.io/';
-
-export default URL
+export default API
