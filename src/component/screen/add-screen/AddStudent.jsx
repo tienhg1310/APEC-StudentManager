@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { memo, useEffect, useState } from "react";
-import URL from "../../Data/API";
+import URL from "../../Data/URL";
 
 import moment from "moment/moment";
 import { useDispatch } from "react-redux";
@@ -37,9 +37,11 @@ function AddStudent() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const timeParse = Date.parse(student.born) / 1000;
+    const gender = student.sex === 'true' ? true : false;
     const postStudent = {
       ...student,
       born: timeParse,
+      sex: gender
     };
     await axios({
       method: "post",
@@ -54,7 +56,7 @@ function AddStudent() {
         //handle error
         console.log(response);
       });
-    dispatch(studentSlice.actions.addStudent(student))
+    dispatch(studentSlice.actions.addStudent(postStudent))
   };
 
   return (

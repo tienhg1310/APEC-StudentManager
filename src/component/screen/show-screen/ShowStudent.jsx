@@ -1,26 +1,20 @@
 import axios from "axios";
 import React, { memo, useEffect, useState } from "react";
 
-import URL from "../../Data/API";
+import URL from "../../Data/URL";
 
 import { useDispatch, useSelector } from "react-redux";
 import { studentSelector } from "../../../redux/selector";
-
+import studentSlice from "../../../redux/studentSlice";
+import dataAPI from "../../Data/URL";
 
 function ShowStudent() {
- 
-
-  const dispatch = useDispatch()
-
+  // const [students, setStudents] = useState([]);
+  const dispatch = useDispatch();
   const students = useSelector(studentSelector);
-  console.log(students)
 
-
-  const editRow = (id) => {
-  };
-  const deleteRow = (id) => {
-    
-  };
+  const editRow = (id) => {};
+  const deleteRow = (id) => {};
 
   return (
     <div className="show-container xl:w-9/12 lg:w-full p-7 shadow-2xl rounded-lg border border-slate-100 lg:overflow-auto overscroll-auto text-sm">
@@ -86,9 +80,7 @@ function ShowStudent() {
                   className="cursor-pointer grow px-3 py-4 border-r border-solid border-slate-600 hover:bg-slate-500 transition"
                   onClick={() => editRow(student.id)}
                 >
-                  <a className=" text-center text-yellow-400">
-                    Sửa
-                  </a>
+                  <a className=" text-center text-yellow-400">Sửa</a>
                 </div>
                 <div
                   className="cursor-pointer grow px-3 py-4 hover:bg-slate-500 transition"
