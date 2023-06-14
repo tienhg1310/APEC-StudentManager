@@ -4,7 +4,8 @@ import URL from "../../Data/URL";
 
 import moment from "moment/moment";
 import { useDispatch } from "react-redux";
-import studentSlice from "../../../redux/studentSlice";
+import studentSlice, { addNewStudent } from "../../../redux/studentSlice";
+import { toast } from "react-toastify";
 
 function AddStudent() {
   const [student, setStudent] = useState({
@@ -27,7 +28,7 @@ function AddStudent() {
     if (name === "born") {
       setStudent((values) => ({
         ...values,
-        [name]: moment(value).format("DD-MM-yyyy"),
+        [name]: moment(value).format("yyyy-MM-DD"),
       }));
     } else {
       setStudent((values) => ({ ...values, [name]: value }));
@@ -43,20 +44,8 @@ function AddStudent() {
       born: timeParse,
       sex: gender
     };
-    await axios({
-      method: "post",
-      url: `${URL}/students`,
-      data: postStudent,
-    })
-      .then(function (response) {
-        //handle success
-        console.log(response);
-      })
-      .catch(function (response) {
-        //handle error
-        console.log(response);
-      });
-    dispatch(studentSlice.actions.addStudent(postStudent))
+    dispatch(addNewStudent(postStudent))
+    toast.success("Add Student Success!!!")
   };
 
   return (
@@ -70,6 +59,7 @@ function AddStudent() {
           type="text"
           id="last_name"
           name="last_name"
+          required
           value={student.last_name || ""}
           onChange={handleChange}
           className="px-3 py-1 w-8/12 border-solid border-2 rounded-lg border-black focus-visible:border-red-400"
@@ -82,6 +72,7 @@ function AddStudent() {
           type="text"
           id="first_name"
           name="first_name"
+          required
           value={student.first_name || ""}
           onChange={handleChange}
           className="px-3 py-1 w-8/12 border-solid border-2 rounded-lg border-black focus-visible:border-red-400"
@@ -95,6 +86,7 @@ function AddStudent() {
           type="date"
           id="born"
           name="born"
+          required
           value={student.born || ""}
           onChange={handleChange}
           className="px-3 py-1 w-8/12 border-solid border-2 rounded-lg border-black focus-visible:border-red-400"
@@ -109,6 +101,7 @@ function AddStudent() {
           type="text"
           id="favorite"
           name="favorite"
+          required
           value={student.favorite || ""}
           onChange={handleChange}
           className="px-3 py-1 w-8/12 border-solid border-2 rounded-lg border-black focus-visible:border-red-400"
@@ -122,6 +115,7 @@ function AddStudent() {
           type="text"
           id="math_point"
           name="math_point"
+          required
           value={student.math_point || ""}
           onChange={handleChange}
           className="px-3 py-1 w-8/12 border-solid border-2 rounded-lg border-black focus-visible:border-red-400"
@@ -135,6 +129,7 @@ function AddStudent() {
           type="text"
           id="literature_point"
           name="literature_point"
+          required
           value={student.literature_point || ""}
           onChange={handleChange}
           className="px-3 py-1 w-8/12 border-solid border-2 rounded-lg border-black focus-visible:border-red-400"
@@ -149,6 +144,7 @@ function AddStudent() {
           type="text"
           id="english_point"
           name="english_point"
+          required
           value={student.english_point || ""}
           onChange={handleChange}
           className="px-3 py-1 w-8/12 border-solid border-2 rounded-lg border-black focus-visible:border-red-400"
@@ -161,6 +157,7 @@ function AddStudent() {
         <select
           id="sex"
           name="sex"
+          required
           value={student.sex}
           onChange={handleChange}
           className="px-3 py-1 w-8/12 border-solid border-2 rounded-lg border-black focus-visible:border-red-400"
